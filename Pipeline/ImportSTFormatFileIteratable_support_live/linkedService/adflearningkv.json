@@ -1,0 +1,11 @@
+{
+    "name": "adflearningkv",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureKeyVault",
+        "typeProperties": {
+            "baseUrl": "https://adf-learning-kv.vault.azure.net/"
+        }
+    }
+}

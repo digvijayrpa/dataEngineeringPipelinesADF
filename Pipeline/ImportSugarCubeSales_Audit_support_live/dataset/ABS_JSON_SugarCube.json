@@ -1,0 +1,51 @@
+{
+    "name": "ABS_JSON_SugarCube",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureBlobStorage1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Json",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobStorageLocation",
+                "fileName": "*.json",
+                "folderPath": "SugarCube/2020",
+                "container": "sink"
+            }
+        },
+        "schema": {
+            "type": "object",
+            "properties": {
+                "Month": {
+                    "type": "string"
+                },
+                "Company": {
+                    "type": "string"
+                },
+                "Sales": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "Product": {
+                                "type": "string"
+                            },
+                            "ManufacturerProductCode": {
+                                "type": "string"
+                            },
+                            "Units": {
+                                "type": "integer"
+                            },
+                            "Value": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

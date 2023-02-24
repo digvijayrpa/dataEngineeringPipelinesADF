@@ -1,0 +1,23 @@
+{
+    "name": "adfstoragelearn",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "parameters": {
+            "ConnectionString": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "AzureBlobStorage",
+        "typeProperties": {
+            "connectionString": {
+                "type": "AzureKeyVaultSecret",
+                "store": {
+                    "referenceName": "adflearningkv",
+                    "type": "LinkedServiceReference"
+                },
+                "secretName": "StorageAccountConnectionString"
+            }
+        }
+    }
+}

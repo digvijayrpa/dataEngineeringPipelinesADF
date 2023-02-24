@@ -1,0 +1,101 @@
+{
+    "name": "ImportSTFormatFileIteratable",
+    "properties": {
+        "activities": [
+            {
+                "name": "Get file list",
+                "type": "GetMetadata",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataset": {
+                        "referenceName": "ABS_CSV",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "Container": "sink",
+                            "Directory": {
+                                "value": "@pipeline().parameters.FolderPath",
+                                "type": "Expression"
+                            },
+                            "File": " ",
+                            "ConnectionSecret": "StorageAccountConnectionString"
+                        }
+                    },
+                    "fieldList": [
+                        "exists",
+                        "itemType",
+                        "itemName",
+                        "childItems"
+                    ],
+                    "storeSettings": {
+                        "type": "AzureBlobStorageReadSettings",
+                        "recursive": true,
+                        "enablePartitionDiscovery": false
+                    },
+                    "formatSettings": {
+                        "type": "DelimitedTextReadSettings"
+                    }
+                }
+            },
+            {
+                "name": "ForEach Sales Data",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Get file list",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('Get file list').output.childItems",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Execute Pipeline Iteratable",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "ImportSTFormatFile_Divert_Iterate",
+                                    "type": "PipelineReference"
+                                },
+                                "waitOnCompletion": true,
+                                "parameters": {
+                                    "Directory": {
+                                        "value": "@pipeline().parameters.FolderPath",
+                                        "type": "Expression"
+                                    },
+                                    "File": {
+                                        "value": "@item().name",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "FolderPath": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2023-02-19T15:01:18Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

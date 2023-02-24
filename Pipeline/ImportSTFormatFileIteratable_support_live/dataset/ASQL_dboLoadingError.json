@@ -1,0 +1,39 @@
+{
+    "name": "ASQL_dboLoadingError",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "adflearninglinkedsql",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureSqlTable",
+        "schema": [
+            {
+                "name": "Timestamp",
+                "type": "datetime2",
+                "scale": 7
+            },
+            {
+                "name": "Level",
+                "type": "nvarchar"
+            },
+            {
+                "name": "OperationName",
+                "type": "nvarchar"
+            },
+            {
+                "name": "OperationItem",
+                "type": "nvarchar"
+            },
+            {
+                "name": "Message",
+                "type": "nvarchar"
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "LoadingError"
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

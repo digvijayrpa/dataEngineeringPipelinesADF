@@ -1,0 +1,51 @@
+{
+    "name": "ABS_CSV",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureBlobStorageParameter",
+            "type": "LinkedServiceReference",
+            "parameters": {
+                "ConnectionSecret": "StorageAccountConnectionString"
+            }
+        },
+        "parameters": {
+            "Container": {
+                "type": "string"
+            },
+            "Directory": {
+                "type": "string"
+            },
+            "File": {
+                "type": "string"
+            },
+            "ConnectionSecret": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobStorageLocation",
+                "fileName": {
+                    "value": "@dataset().File",
+                    "type": "Expression"
+                },
+                "folderPath": {
+                    "value": "@dataset().Directory",
+                    "type": "Expression"
+                },
+                "container": {
+                    "value": "@dataset().Container",
+                    "type": "Expression"
+                }
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\"",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": []
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

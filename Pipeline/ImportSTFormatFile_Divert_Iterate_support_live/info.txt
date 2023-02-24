@@ -1,0 +1,6 @@
+selected resource name:		ImportSTFormatFile_Divert_Iterate
+selected resource type:		pipeline
+factory name:			datafactory-new-learn
+factory location:		southindia
+subscription id:		9c306e82-fa13-4584-ad75-9d7da57cbe1e
+time of download (UTC):		Fri, 24 Feb 2023 17:02:37 GMT
